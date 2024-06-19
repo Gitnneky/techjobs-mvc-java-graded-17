@@ -34,15 +34,17 @@ public class SearchController {
         ArrayList<Job> jobs;
 
         if(searchTerm.toLowerCase().equals("all")||searchTerm.equals("")){
-            jobs = JobData.findByValue(searchTerm);
-           model.addAttribute("title", "All jobs");
+//            jobs = JobData.findByValue(searchTerm);
+            jobs=JobData.findAll();
+//           model.addAttribute("title", "All jobs");
         } else {
             jobs = JobData.findByColumnAndValue(searchType, searchTerm);
-            model.addAttribute("title", "jobs with" + searchType + ":" + searchTerm);
+//            model.addAttribute("title", "jobs with" + searchType + ":" + searchTerm);
         }
 //        model.addAttribute("title", "jobs with" + searchType + ":" + searchTerm);
         model.addAttribute("jobs", jobs);
-    model.addAttribute("columns", columnChoices);
+    model.addAttribute("columns", ListController.columnChoices);
+    model.addAttribute("title", "jobs with" + ListController.columnChoices.get(searchType) + ":" + searchTerm);
         return "search";
 }
 }
